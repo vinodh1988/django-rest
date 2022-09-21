@@ -14,5 +14,5 @@ def getPeople(request):
 @api_view(['GET'])
 def peopleList(request):
     result=Person.objects.all()
-    #serializer=PersonSerializer(result)
-    return Response({'people': list(result.values())})
+    serializer=PersonSerializer(result,many=True)
+    return Response(serializer.data)
