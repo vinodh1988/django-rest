@@ -1,1 +1,1 @@
-from serializers.serializers import PersonSerializer
+from firstrest.serializers.serializers import PersonSerializer

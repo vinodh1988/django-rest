@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from serializers import PersonSerializer
+from firstrest.serializers import PersonSerializer
 
 # Create your views here.
 def getPeople(request):
@@ -14,5 +14,5 @@ def getPeople(request):
 @api_view(['GET'])
 def peopleList(request):
     result=Person.objects.all()
-    serializer=PersonSerializer(result)
-    return Response(serializer.data)
+    #serializer=PersonSerializer(result)
+    return Response({'people': list(result.values())})
