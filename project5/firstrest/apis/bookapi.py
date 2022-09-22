@@ -20,5 +20,18 @@ class AuthorAPI(APIView):
                 return Response(AuthorSerializer(author).data)
             except Author.DoesNotExist:
                 return Response({'error':'No Record'},status=status.HTTP_204_NO_CONTENT)
+
+    def post(self,request):
+        record=AuthorSerializer(data=request.data)
+        try:
+            if(record.is_valid()):
+                record.save()
+                return Response(record.data)
+            else:
+                return Response({'error':'Invalid Record'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+             return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+      
+
         
 
