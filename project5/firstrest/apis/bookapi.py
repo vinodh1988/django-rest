@@ -8,6 +8,7 @@ class AuthorAPI(APIView):
     def get(self,request,pk=None):
         if(pk==None):
             authors=Author.objects.all()
-            result=AuthorSerializer(authors,many=True)
-            return Response(result)
+            print(list(authors.values()))
+           # result=AuthorSerializer(authors,many=True)
+            return Response({'author': list(authors.values())})
         return Response({'messsage':"Hello"})
