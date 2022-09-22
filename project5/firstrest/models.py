@@ -12,7 +12,7 @@ class Person(models.Model):
         return  str({'sno':self.sno,'name':self.name,'city':self.city})
 
 class Author(models.Model):
-    authorid=models.IntegerField(PrimaryKey=True)
+    authorid=models.IntegerField(primary_key=True)
     name=models.CharField(max_length=30,null=False)
     country=models.CharField(max_length=30,null=False)
 
@@ -20,7 +20,7 @@ class Author(models.Model):
         return str({'authorid':self.authorid,'name':self.name,'country':self.country})
 
 class Book(models.Model):
-    bookid=models.IntegerField(PrimaryKey=True)
+    bookid=models.IntegerField(primary_key=True)
     name=models.CharField(max_length=30,null=False)
     price=models.FloatField(null=False)
     category=models.CharField(max_length=30,null=False)
@@ -30,5 +30,6 @@ class Book(models.Model):
         return str({'bookid':self.bookid,'name':self.name,'price':self.price,
         'category':self.category})
 
+  
  
     
