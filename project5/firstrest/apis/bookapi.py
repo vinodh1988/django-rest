@@ -12,3 +12,4 @@ class AuthorAPI(APIView):
            # result=AuthorSerializer(authors,many=True)
             return Response({'author': list(authors.values())})
         return Response({'messsage':"Hello"})
+
