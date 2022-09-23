@@ -1,1 +1,1 @@
-from firstrest.serializers.serializers import PersonSerializer,AuthorSerializer
+from firstrest.serializers.serializers import PersonSerializer,AuthorSerializer,BookSerializer

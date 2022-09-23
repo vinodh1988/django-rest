@@ -5,7 +5,7 @@ from firstrest.models import Author,Book
 from rest_framework.response import Response
 from firstrest.serializers import AuthorSerializer,BookSerializer
 from rest_framework import status
-from rest_framework.serializers import serializers
+from rest_framework import serializers
 
 class AuthorAPI(APIView):
     def get(self,request,pk=None):

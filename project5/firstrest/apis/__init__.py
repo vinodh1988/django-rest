@@ -1,1 +1,1 @@
-from firstrest.apis.bookapi import AuthorAPI
+from firstrest.apis.bookapi import AuthorAPI, BookAPI
