@@ -28,10 +28,27 @@ class AuthorAPI(APIView):
                 record.save()
                 return Response(record.data)
             else:
+         
+                return Response({'error':'Invalid Record'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except:
+             return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def put(self,request,pk):
+        
+        try:
+            item=Author.objects.get(pk=pk)
+            print(request.data)
+            serialized=AuthorSerializer(item,data=request.data)
+            if(serialized.is_valid()):
+                serialized.save()
+                return Response(serialized.data)
+            else:
+         
                 return Response({'error':'Invalid Record'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except:
              return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
       
+   
 
 class BookAPI(APIView):
     def get(self,request,pk=None):
@@ -48,17 +65,22 @@ class BookAPI(APIView):
                 return Response({'error':'No Record'},status=status.HTTP_204_NO_CONTENT)
 
     def post(self,request):
-        record=BookSerializer(data=request.data)
+        record=BookSerializer(data=request.data,read_only=True)
+        print(record)
+        print(record.initial_data)
         try:
             if(record.is_valid()):
                 record.save()
                 return Response(record.data)
             else:
+                print("validation issue")
                 return Response({'error':'Invalid Record'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except serializers.ValidationError as e:
             return Response({'error':e.message},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-        except:
+        except Exception as e:
+             print('there is an exception')
+             print(e.__class__)
              return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
       
 

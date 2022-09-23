@@ -13,6 +13,8 @@ class BookSerializer(serializers.ModelSerializer):
         model= Book
         fields = '__all__'
         def validate(self,data):
+            print(data)
+            print(data['price'])
             if(data['price']<20):
                 raise serializers.ValidationError('Price should be atleast Rs. 20')
     
