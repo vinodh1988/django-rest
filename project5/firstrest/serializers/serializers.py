@@ -11,19 +11,30 @@ class BookSerializer(serializers.ModelSerializer):
     #author=serializers.CharField(source='author.name')
     class Meta:
         model= Book
-        fields = "__all__"
+        fields = ('bookid','name','price','category')
 
         def validate(self,data):
             print(data)
             print(data['price'])
             if(data['price']<20):
                 raise serializers.ValidationError('Price should be atleast Rs. 20')
-        
-   
-    
 
+        
 class AuthorSerializer(serializers.ModelSerializer):
-    books=BookSerializer(many=True,read_only=True)
+    books=BookSerializer(many=True)
     class Meta:
         model= Author
         fields = ('authorid','name','country','books')
+
+    def create(self,validated_data):
+        try:
+            print('####this method is called')
+            print(validated_data)
+            temp_data = validated_data.pop('books')
+            print(temp_data)
+            author=Author.objects.create(**validated_data)
+            for data in temp_data:
+                Book.objects.create(author=author,**temp_data)
+            return author
+        except Exception as e:
+            print(e)
