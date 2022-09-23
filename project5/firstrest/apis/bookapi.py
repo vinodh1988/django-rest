@@ -2,10 +2,11 @@
 from os import stat
 from turtle import st
 from rest_framework.decorators import APIView
-from firstrest.models import Author
+from firstrest.models import Author,Book
 from rest_framework.response import Response
-from firstrest.serializers import AuthorSerializer
+from firstrest.serializers import AuthorSerializer,BookSerializer
 from rest_framework import status
+from rest_framework.serializers import serializers
 
 class AuthorAPI(APIView):
     def get(self,request,pk=None):
@@ -33,5 +34,36 @@ class AuthorAPI(APIView):
              return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
       
 
+class BookAPI(APIView):
+    def get(self,request,pk=None):
+        if(pk==None):
+            books=Book.objects.all()
+            print(list(books.values()))
+            result=BookSerializer(books,many=True)
+            return Response(result.data)
+        else:
+            try:
+                book=Book.objects.get(pk=pk)
+                return Response(AuthorSerializer(book).data)
+            except Author.DoesNotExist:
+                return Response({'error':'No Record'},status=status.HTTP_204_NO_CONTENT)
+
+    def post(self,request):
+        record=BookSerializer(data=request.data)
+        try:
+            if(record.is_valid()):
+                record.save()
+                return Response(record.data)
+            else:
+                return Response({'error':'Invalid Record'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except serializers.ValidationError as e:
+            return Response({'error':e.message},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+        except:
+             return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+      
+
         
+
+
 
