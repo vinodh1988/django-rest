@@ -1,6 +1,5 @@
 
-from os import stat
-from turtle import st
+
 from rest_framework.decorators import APIView
 from firstrest.models import Author,Book
 from rest_framework.response import Response
