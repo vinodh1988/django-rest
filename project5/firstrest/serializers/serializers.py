@@ -12,6 +12,10 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model= Book
         fields = '__all__'
+        def validate(self,data):
+            if(data['price']<20):
+                raise serializers.ValidationError('Price should be atleast Rs. 20')
+    
 
 class AuthorSerializer(serializers.ModelSerializer):
     books=BookSerializer(many=True,read_only=True)
