@@ -48,6 +48,14 @@ class AuthorAPI(APIView):
         except:
              return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
       
+    def delete(self,request,pk):
+        
+        try:
+            item=Author.objects.get(pk=pk)
+            item.delete()
+            return Response({'message':'Deleted'},status=status.HTTP_200_OK)
+        except:
+             return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
    
 
 class BookAPI(APIView):

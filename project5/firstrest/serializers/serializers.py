@@ -8,15 +8,18 @@ class PersonSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    author=serializers.CharField(source='author.name')
+    #author=serializers.CharField(source='author.name')
     class Meta:
         model= Book
-        fields = '__all__'
+        fields = "__all__"
+
         def validate(self,data):
             print(data)
             print(data['price'])
             if(data['price']<20):
                 raise serializers.ValidationError('Price should be atleast Rs. 20')
+        
+   
     
 
 class AuthorSerializer(serializers.ModelSerializer):
