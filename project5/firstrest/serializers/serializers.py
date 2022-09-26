@@ -8,12 +8,12 @@ class PersonSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    #author=serializers.CharField(source='author.name')
+    authorname=serializers.CharField(source='author.name',read_only=True)
     class Meta:
         model= Book
-        fields = ('bookid','name','price','category')
+        fields = ('bookid','name','price','category','authorname')
 
-        def validate(self,data):
+    def validate(self,data):
             print(data)
             print(data['price'])
             if(data['price']<20):
