@@ -28,9 +28,10 @@ class AuthorAPI(APIView):
                 record.save()
                 return Response(record.data)
             else:
-         
+                print(record.errors)
                 return Response({'error':'Invalid Record'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        except:
+        except Exception as e:
+             print(e)
              return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def put(self,request,pk):

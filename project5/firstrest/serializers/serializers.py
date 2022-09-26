@@ -18,6 +18,8 @@ class BookSerializer(serializers.ModelSerializer):
             print(data['price'])
             if(data['price']<20):
                 raise serializers.ValidationError('Price should be atleast Rs. 20')
+            else:
+                return data
 
         
 class AuthorSerializer(serializers.ModelSerializer):
@@ -34,7 +36,7 @@ class AuthorSerializer(serializers.ModelSerializer):
             print(temp_data)
             author=Author.objects.create(**validated_data)
             for data in temp_data:
-                Book.objects.create(author=author,**temp_data)
+                Book.objects.create(author=author,**data)
             return author
         except Exception as e:
             print(e)
