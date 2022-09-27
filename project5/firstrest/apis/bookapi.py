@@ -3,7 +3,7 @@
 from rest_framework.decorators import APIView
 from firstrest.models import Author,Book
 from rest_framework.response import Response
-from firstrest.serializers import AuthorSerializer,BookSerializer
+from firstrest.serializers import AuthorSerializer,BookSerializer,BookDirectSerializer
 from rest_framework import status
 from rest_framework import serializers
 
@@ -69,12 +69,12 @@ class BookAPI(APIView):
         else:
             try:
                 book=Book.objects.get(pk=pk)
-                return Response(AuthorSerializer(book).data)
+                return Response(BookSerializer(book).data)
             except Author.DoesNotExist:
                 return Response({'error':'No Record'},status=status.HTTP_204_NO_CONTENT)
 
     def post(self,request):
-        record=BookSerializer(data=request.data,read_only=True)
+        record=BookDirectSerializer(data=request.data)
         print(record)
         print(record.initial_data)
         try:
@@ -89,6 +89,8 @@ class BookAPI(APIView):
     
         except Exception as e:
              print('there is an exception')
+             print(e)
+             print(e.__cause__)
              print(e.__class__)
              return Response({'error':'Server Error'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
       

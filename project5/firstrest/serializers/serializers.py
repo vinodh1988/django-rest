@@ -21,6 +21,30 @@ class BookSerializer(serializers.ModelSerializer):
             else:
                 return data
 
+class BookDirectSerializer(serializers.ModelSerializer):
+    authorname=serializers.CharField(source='author.name',read_only=True)
+    class Meta:
+        model= Book
+        fields = ('bookid','name','price','category','authorname','author')
+        extra_kwargs={
+            'author': {'write_only': True}
+        }
+
+    def validate(self,data):
+            print(data)
+            print(data['price'])
+            if(data['price']<20):
+                raise serializers.ValidationError('Price should be atleast Rs. 20')
+            else:
+                return data
+
+    def validate_category(self, category):
+        if( category not in ['Technology','Literature','Spiritual','Science','Biography']):
+            raise serializers.ValidationError('Not a valid category')
+        else:
+            return category
+
+
         
 class AuthorSerializer(serializers.ModelSerializer):
     books=BookSerializer(many=True)
