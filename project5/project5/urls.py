@@ -22,5 +22,6 @@ urlpatterns = [
     path('',home_view, name="home-page"),
     path('people/',include('firstrest.urls')),
     path('api/',include('firstrest.urls')),
-    path('ui/',include('firstrest.urls'))
+    path('ui/',include('firstrest.urls')),
+    path('users/',include('user_app.api.urls'))
 ]

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'django_filters',
     'firstrest',
+    'user_app',
     'rest_framework.authtoken'
 ]
 
