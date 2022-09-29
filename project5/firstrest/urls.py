@@ -7,7 +7,7 @@ urlpatterns=[
     path('peoplelist/',peopleList),
     path('authors/',AuthorAPI.as_view(),name='author-list'),
     path('gauthors/',AuthorGAPI.as_view(),name='author-generic'),
-    path('gbooks/',BookAPI.as_view(),name='book-generic'),
+    path('gbooks/',BookGAPI.as_view(),name='book-generic'),
     path('authors/<int:pk>',AuthorAPI.as_view(),name='author-by-id'),
     path('books/',BookAPI.as_view(),name='book-list'),
     path('resthome/',view_home, name="view home page"),

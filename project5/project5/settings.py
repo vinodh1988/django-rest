@@ -45,7 +45,13 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
   'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+  'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+  'DEFAULT_AUTHENTICATION_CLASSES': [
+    'rest_framework.authentication.BasicAuthentication'
+  ]
+ # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+ #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
+ # 'PAGE_SIZE': 3
 }
 
 MIDDLEWARE = [
@@ -131,3 +137,4 @@ print(STATICFILES_DIRS)
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
