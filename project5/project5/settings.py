@@ -40,14 +40,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'django_filters',
-    'firstrest'
+    'firstrest',
+    'rest_framework.authtoken'
 ]
 
 REST_FRAMEWORK = {
   'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
   'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
   'DEFAULT_AUTHENTICATION_CLASSES': [
-    'rest_framework.authentication.BasicAuthentication'
+    #'rest_framework.authentication.BasicAuthentication'
+    'rest_framework.authentication.TokenAuthentication'
   ]
  # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
  #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
