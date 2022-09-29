@@ -8,7 +8,10 @@ from firstrest.serializers import PersonSerializer,AuthorSerializer
 from firstrest.models import Author
 from firstrest.forms import AuthorForm
 from rest_framework_swagger.views import get_swagger_view
-
+import matplotlib.pyplot as plt
+import numpy as np
+import io
+import base64,urllib
 # Create your views here.
 def getPeople(request):
     result=Person.objects.all()
@@ -22,6 +25,17 @@ def peopleList(request):
 
 
 def view_home(request):
+    x = np.linspace(0, 2 * np.pi, 200)
+    y = np.sin(x)
+    fig, ax = plt.subplots()
+    ax.plot(x, y)
+    #plt.plot(range(10))
+    fig=plt.gcf()
+    buf=io.BytesIO()
+    fig.savefig(buf,format="png")
+    buf.seek(0)
+    datastring = base64.b64encode(buf.read())
+    uri= urllib.parse.quote(datastring)
     authors=Author.objects.all()
     serializer=AuthorSerializer(authors,many=True)
     print(serializer.data)
@@ -32,7 +46,8 @@ def view_home(request):
 
     context={
         'authors': serializer.data,
-        'form': AuthorForm()
+        'form': AuthorForm(),
+        'ploturl': uri
     }
 
     return render(request,'resthome.html',context)
